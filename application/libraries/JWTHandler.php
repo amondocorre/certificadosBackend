@@ -5,7 +5,7 @@ use Firebase\JWT\JWT;
 
 class JWTHandler {
 
-    private $secret_key = PASSWOR_ACCESS; 
+    private $secret_key = PASSWORD_ACCESS; 
 
     public function encode($payload) {
       $payload['iat'] = time(); 

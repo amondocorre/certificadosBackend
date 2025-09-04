@@ -3,7 +3,6 @@ class DashboardModel extends CI_Model {
   protected $ie = 'ingreso_salida'; 
   public function __construct() {
       parent::__construct();
-      $this->load->model('InventoryModel');
   }
   public function fetch_arrivals_departures() {
     return $this->db->query("

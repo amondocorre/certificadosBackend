@@ -33,19 +33,13 @@ class DashboardController extends CI_Controller {
     $data = $this->DashboardModel->get_ingresos_diarios($id_sucursal);
     echo json_encode($data);
   }
-  public function getTotalesInventario($id_sucursal) {
-    $this->load->model('dashboard/DashboardModel');
-    $data = $this->DashboardModel->getTotalesInventario($id_sucursal);
-    echo json_encode($data);
-  }
   public function listRent($idSucursal) {
-    $this->load->model('RentModel');
     $data = json_decode(file_get_contents('php://input'), true);
     $page = $data['page'] ?? 1;
     $limit = $data['limit'] ?? 10;
     $offset = ($page - 1) * $limit;
-    $data = $this->RentModel->getAlquileres($limit, $offset,$idSucursal);
-    $total = $this->RentModel->getTotalAlquileres($idSucursal);
+    $data = [];
+    $total = 0;
     $response = [
       'data' => $data,
       'pagination' => [
@@ -58,13 +52,12 @@ class DashboardController extends CI_Controller {
     echo json_encode($response);
   }
   public function listRentEntrega($idSucursal) {
-    $this->load->model('RentModel');
     $data = json_decode(file_get_contents('php://input'), true);
     $page = $data['page'] ?? 1;
     $limit = $data['limit'] ?? 10;
     $offset = ($page - 1) * $limit;
-    $data = $this->RentModel->getAlquileresEntrega($limit, $offset,$idSucursal);
-    $total = $this->RentModel->getTotalAlquileresEntrega($idSucursal);
+    $data = [];
+    $total =0;
     $response = [
       'data' => $data,
       'pagination' => [
@@ -78,10 +71,8 @@ class DashboardController extends CI_Controller {
   }
   public function getDetailRent($idContrato) {
     if (!validate_http_method($this, ['GET'])) return; 
-    ///$res = verifyTokenAccess();
-    $this->load->model('RentModel');
-    $data = $this->RentModel->getAlquilerById($idContrato);
-    $productos = $data['id_estado_alquiler']==2?$this->RentModel->getProductosAlquilerById($idContrato):[];
+    $data = [];
+    $productos = [];
     $response = [
       'data' => $data,
       'productos'=>$productos     
