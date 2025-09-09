@@ -237,3 +237,6 @@ $route['api/dashboard/getTotalesInventario/(:any)'] = 'dashboard/DashboardContro
 $route['api/dashboard/listRent/(:any)'] = 'dashboard/DashboardController/listRent/$1';
 $route['api/dashboard/listRentEntrega/(:any)'] = 'dashboard/DashboardController/listRentEntrega/$1';
 $route['api/dashboard/getDetailRent/(:any)'] = 'dashboard/DashboardController/getDetailRent/$1';
+// evaluation
+$route['api/evaluation/exploration/create'] = 'evaluation/ExplorationController/create';
+$route['api/evaluation/exploration/search'] = 'evaluation/ExplorationController/search';
