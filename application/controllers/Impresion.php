@@ -7,7 +7,7 @@ class Impresion extends CI_Controller {
     $this->load->database(); 
     $this->load->model('configurations/Company');
     $this->load->model('configurations/PaymentMethod');
-    $this->load->model('RentModel');
+    //$this->load->model('RentModel');
     $this->load->model('caja/CajaModel');
     $this->load->model('auth/User_model');
     $this->load->model('caja/BoxMovement');
@@ -204,36 +204,26 @@ class Impresion extends CI_Controller {
     $this->load->view('impresion/RecibosPagos', $datos, FALSE); 
     $response = ['status' => 'success','data'=>$objeto];
     //return _send_json_response($this, 200, $response);
+    
   }
-  public function imprimirReciboPagoContrato($idContrato) {
-    if (!validate_http_method($this, ['GET'])) return; 
+  public function imprimirEvaluacionMedica() {
+    if (!validate_http_method($this, ['POST'])) return; 
     $res = verifyTokenAccess();
     if(!$res) return; 
-    $data = json_decode(file_get_contents('php://input'), true);
-    $company = $this->Company->findIdentity(1);
+    $data = json_decode(file_get_contents('php://input'), false);
+    //$company = $this->Company->findIdentity(1);
+    $objeto = new stdClass();
     $url = getHttpHost();
-    $objeto = array();
-    $sql = "CALL getPagoByIdAlquiler(?)";
-    $query = $this->db->query($sql, [$idContrato]);
-    $pagos = $query->result();
-    $query->free_result(); 
-    $this->db->close();
-    $this->db->initialize();
-    foreach($pagos as $pago){
-      $pago->literal = construirLiteral($pago->monto);
-      $pago->empresa = strtoupper($company->nombre??'');
-      $pago->direccion = $company->direccion??'';
-      $pago->nit = $company->nit??'';
-      $pago->celular = $company->celular??'';
-      //$pago->numero = $idPago;
-      //$pago->montoAtraso = number_format($pago->montoAtraso,2);
-      $pago->fecha = date('d-m-Y', strtotime($pago->fecha));
-      $pago->hora = date('h:i:s A', strtotime($pago->fecha));
-      $pago->logo = $company->logo_impresion?$url.$company->logo_impresion:'';
-      array_push($objeto,$pago);
-    }
-    $datos['json'] = json_encode($objeto);
-    $this->load->view('impresion/RecibosPagos', $datos, FALSE); 
+       /* $company->nombre = strtoupper($company->nombre??'');
+        $company->direccion = $company->direccion??'';
+        $company->nit = $company->nit??'';
+        $company->celular = $company->celular??'';
+        $company->logo = $company->logo_impresion?$url.$company->logo_impresion:'';
+    $objeto->company = $company;
+    $objeto->data = $data;*/
+    $data->foto = $data->foto?$url.$data->foto:'';
+    $datos['json'] = json_encode($data);
+    $this->load->view('impresion/evaluacionMedica', $datos, FALSE); 
     $response = ['status' => 'success','data'=>$objeto];
     //return _send_json_response($this, 200, $response);
   }

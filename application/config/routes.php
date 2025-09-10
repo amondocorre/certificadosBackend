@@ -206,7 +206,8 @@ $route['api/impresion/imprimirCierreTurno/(:any)'] = 'Impresion/imprimirCierreTu
 $route['api/impresion/imprimirContrato/(:any)'] = 'Impresion/imprimirContrato/$1';
 $route['api/impresion/imprimirReciboPago/(:any)'] = 'Impresion/imprimirReciboPago/$1';
 $route['api/impresion/imprimirReciboPagoContrato/(:any)'] = 'Impresion/imprimirReciboPagoContrato/$1';
-$route['api/impresion/imprimirRecibosPagos'] = 'Impresion/imprimirRecibosPagos';
+$route['api/impresion/imprimirEvaluacionMedica'] = 'Impresion/imprimirEvaluacionMedica';
+
 $route['api/config/company/activate/(:any)'] = 'configurations/CompanyController/activate/$1';
 
 $route['api/client-company/findActive'] = 'ClientCompanyController/findActive';
