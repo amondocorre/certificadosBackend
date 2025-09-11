@@ -171,26 +171,11 @@ $route['api/caja-movi/create/(:any)'] = 'caja/BoxMovementController/create/$1';
 $route['api/caja-movi/update/(:any)'] = 'caja/BoxMovementController/update/$1';
 $route['api/caja-movi/delete/(:any)'] = 'caja/BoxMovementController/delete/$1';
 $route['api/caja-movi/activate/(:any)'] = 'caja/BoxMovementController/activate/$1';
-// alquileres
-$route['api/rent/getDataRequerid'] = 'RentController/getDataRequerid';
-$route['api/rent/registerRent'] = 'RentController/registerRent';
-$route['api/rent/registerReturn'] = 'RentController/registerReturn';
-$route['api/rent/listRentals'] = 'RentController/listRentals';
-$route['api/rent/getEstadoAlquiler'] = 'RentController/getEstadoAlquiler';
-$route['api/rent/getDataReturn/(:any)'] = 'RentController/getDataReturn/$1';
-$route['api/rent/getAlquilerDeuda/(:any)'] = 'RentController/getAlquilerDeuda/$1';
-$route['api/rent/registerPagoDeuda'] = 'RentController/registerPagoDeuda';
-$route['api/rent/registerPagoDeudas'] = 'RentController/registerPagoDeudas';
-$route['api/rent/registerEntrega/(:any)'] = 'RentController/registerEntrega/$1';
-$route['api/rent/listEntregas'] = 'RentController/listEntregas';
-$route['api/rent/listRentClient'] = 'RentController/listRentClient';
+
 //inventarios
 $route['api/inventario/getStock/(:any)'] = 'InventoryController/getStock/$1';
 $route['api/inventario/getInventario/(:any)'] = 'InventoryController/getInventario/$1';
 //compras 
-$route['api/compra/register'] = 'CompraController/register';
-$route['api/compra/update'] = 'CompraController/register';
-$route['api/compra/list'] = 'CompraController/list';
 
 
 $route['api/config/company/findActive'] = 'configurations/CompanyController/findActive';
@@ -241,3 +226,8 @@ $route['api/dashboard/getDetailRent/(:any)'] = 'dashboard/DashboardController/ge
 // evaluation
 $route['api/evaluation/exploration/create'] = 'evaluation/ExplorationController/create';
 $route['api/evaluation/exploration/search'] = 'evaluation/ExplorationController/search';
+// evaluation medical
+$route['api/evaluation/medical/create'] = 'evaluation/MedicalController/create';
+$route['api/evaluation/medical/update/(:any)'] = 'evaluation/MedicalController/update/$1';
+$route['api/evaluation/medical/search'] = 'evaluation/MedicalController/search';
+
