@@ -14,9 +14,9 @@ $pageLayout = [216, 279];
 $pdf = new MYPDF('P', 'mm', $pageLayout, true, 'UTF-8', false);
 //$pdf->SetAutoPageBreak(true, 10); 
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Chuñitos');
-$pdf->SetTitle('nota venta');
-$pdf->SetSubject('nota venta');
+$pdf->SetAuthor('centromedico');
+$pdf->SetTitle('examen medico');
+$pdf->SetSubject('examen medico A');
 $pdf->SetKeywords('TCPDF, CodeIgniter, PDF, Voucher');
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 $pdf->SetHeaderMargin(5);
@@ -29,12 +29,17 @@ $pdf->setFontSubsetting(true);
 $pdf->SetMargins(25, 20, 20);
 $pdf->SetAutoPageBreak(TRUE, 10);
 
-$margen=1 ;
+$margen=0 ;
+
 $pdf->AddPage();
   $logoWidth = 26;
   $logoX = $pdf->GetX();
   $logoY = $pdf->GetY();
-  $pdf->Image($data->foto, $logoX-10, $logoY-10, $logoWidth, '', 'PNG');
+  $rutaImagen =  $data->foto;
+  $pdf->Image($rutaImagen, $logoX+140, $logoY+15, $logoWidth, '0', 'PNG');
+ 
+
+  //$pdf->Image($data->foto, $logoX-10, $logoY-10, $logoWidth, '', 'PNG');
   $pdf->SetFont('helvetica', 'B', 14);
   $afterLogoY = $logoY + $logoWidth + 2;
   $pdf->SetXY($pdf->getMargins()['left']-10,$afterLogoY-12);
@@ -57,9 +62,9 @@ $pdf->AddPage();
   //sexo
   $pdf->Cell(10, 5, $data->sexo, $margen, 0, 'C');
   $pdf->Cell(5, 5, "", $margen, 0, 'C');
-  $pdf->Cell(29, 5, "COCHABAMBA, ", $margen, 0, 'R');
+  $pdf->Cell(27, 5, "COCHABAMBA, ".$data->fecha_evaluacion, $margen, 0, 'L');
   //fecha
-  $pdf->Cell(20, 5, $data->fecha, $margen, 1, 'L');
+  //$pdf->Cell(20, 5, $data->fecha, $margen, 1, 'L');
   //antecedentes_rc
   $pdf->Cell(5, 18, "", $margen, 1, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(45, 5, "", $margen, 0, 'C');
@@ -99,14 +104,7 @@ $pdf->AddPage();
         $pdf->Cell(136, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    default:
-        $pdf->Cell(44, 5, "", $margen, 0, 'C');
-        $pdf->Cell(8, 5, "X", $margen, 0, 'C');
-        $pdf->Cell(33, 5, "", $margen, 0, 'C');
-        $pdf->Cell(8, 5, "X", $margen, 0, 'C');
-        $pdf->Cell(49, 5, "", $margen, 0, 'C');
-        $pdf->Cell(8, 5, "X", $margen, 0, 'C');
-        break;
+    
   }
   
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+7); // asegura posición
@@ -251,13 +249,122 @@ $pdf->AddPage();
   $pdf->Cell(53, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(40, 5, $data->dx_lampara_hendidura, $margen, 1, 'l');
   
+  // --- Termina primera hoja ---
 
 
-
-
-
-
-
+  // 👉 Agregar nueva página
+  $pdf->AddPage();
+  $pdf->SetFont('helvetica', 'N', 10);
+  
+  //oido externo
+  $pdf->SetFont('helvetica', 'N', 8);
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+22); // asegura posición
+  $pdf->Cell(30, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(140, 4, utf8_decode($data->oido_externo), $margen, 'L');
+  //$pdf->SetFont('helvetica', 'N', 10);
+  //otoscpia
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
+  $pdf->Cell(15, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(45, 5, $data->oroscopia, $margen, 0, 'l');
+  //t_weber
+  $pdf->Cell(18, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(38, 5, $data->t_weber, $margen, 0, 'l');
+  //t_rinne
+  $pdf->Cell(15, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(40, 5, $data->t_rinne, $margen, 1, 'l');
+  //torax
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+12); // asegura posición
+  $pdf->Cell(28, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(140, 5, $data->torax, $margen, 1, 'l');
+  //cardiopulmonar
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
+  $pdf->Cell(45, 4, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(120, 5, utf8_decode($data->cardiopolmunar), $margen, 'L');
+  //abdomen
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+8); // asegura posición
+  $pdf->Cell(30, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(135, 5, utf8_decode($data->abdomen), $margen, 'L');
+  //trofismo s
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+11); // asegura posición
+  $pdf->Cell(45, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(30, 5, $data->s_trofismo, $margen, 0, 'C');
+  //trofismo i
+  $pdf->Cell(60, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(30, 5, $data->i_trofismo, $margen, 1, 'C');
+  //muscular s
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
+  $pdf->Cell(45, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(30, 5, $data->s_tono_muscular, $margen, 0, 'C');
+  //muscular i
+  $pdf->Cell(60, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(30, 5, $data->i_tono_muscular, $margen, 1, 'C');
+  //fuerza muscular s
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
+  $pdf->Cell(45, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(30, 5, $data->s_fuerza_muscular, $margen, 0, 'C');
+  //fuerza muscular i
+  $pdf->Cell(60, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(30, 5, $data->i_fuerza_muscular, $margen, 1, 'C');
+  //COORDINACION Y MArCHA
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+10); // asegura posición
+  $pdf->Cell(48, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(110, 5, utf8_decode($data->cordinacion_marcha), $margen, 'L');
+  //reflejos osteotendiosos
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
+  $pdf->Cell(48, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(110, 5, utf8_decode($data->reflejos_osteotendinosos), $margen, 'L');
+  //talon rodilla
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+7); // asegura posición
+  $pdf->Cell(35, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(130, 5, utf8_decode($data->talon_rodilla), $margen, 'L');
+  //dedo nariz
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
+  $pdf->Cell(35, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(130, 5, utf8_decode($data->dedo_nariz), $margen, 'L');
+  //romberg
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+8); // asegura posición
+  $pdf->Cell(32, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(130, 5, utf8_decode($data->romberg), $margen, 'L');
+  //motoras sensitivas
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
+  $pdf->Cell(60, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(80, 5, utf8_decode($data->motoras_sensetivas_diagnosticadas), $margen, 'L');
+   //evaluacion de especialidad
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+6); // asegura posición
+  switch (trim($data->requiere_evaluacion_especialidad)) {
+    case 'SI':
+        $pdf->Cell(70, 5, "", $margen, 0, 'C');
+        $pdf->Cell(8, 5, "X", $margen, 1, 'C');
+        break;
+    case 'NO':
+        $pdf->Cell(125, 5, "", $margen, 0, 'C');
+        $pdf->Cell(8, 5, "X", $margen, 1, 'C');
+        break;
+  }
+   //motivo de especialidad
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+4); // asegura posición
+  $pdf->Cell(60, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(80, 5, utf8_decode($data->evaluacion_especialidad), $margen, 'L');
+   //resultado motivo de especialidad
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
+  $pdf->Cell(65, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->MultiCell(80, 5, utf8_decode($data->resultado_evaluacion), $margen, 'L');
+    //evaluacion de psicosensometirca
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+4); // asegura posición
+  switch (trim($data->requiere_evaluacion_psicosensometria)) {
+    case 'SI':
+        $pdf->Cell(78, 5, "", $margen, 0, 'C');
+        $pdf->Cell(8, 5, "X", $margen, 1, 'C');
+        break;
+    case 'NO':
+        $pdf->Cell(133, 5, "", $margen, 0, 'C');
+        $pdf->Cell(8, 5, "X", $margen, 1, 'C');
+        break;
+  }
+  //resultado de la evaluacion
+  $pdf->SetFont('helvetica', 'B', 12);
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+21); // asegura posición
+  $pdf->MultiCell(170, 5, utf8_decode($data->resultado_evaluacion), $margen, 'C');
 
 
 

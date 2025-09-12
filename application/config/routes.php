@@ -192,6 +192,7 @@ $route['api/impresion/imprimirContrato/(:any)'] = 'Impresion/imprimirContrato/$1
 $route['api/impresion/imprimirReciboPago/(:any)'] = 'Impresion/imprimirReciboPago/$1';
 $route['api/impresion/imprimirReciboPagoContrato/(:any)'] = 'Impresion/imprimirReciboPagoContrato/$1';
 $route['api/impresion/imprimirEvaluacionMedica'] = 'Impresion/imprimirEvaluacionMedica';
+$route['api/impresion/imprimirEvaluacionPsicologica'] = 'Impresion/imprimirEvaluacionPsicologica';
 
 $route['api/config/company/activate/(:any)'] = 'configurations/CompanyController/activate/$1';
 

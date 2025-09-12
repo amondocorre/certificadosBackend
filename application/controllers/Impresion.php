@@ -228,4 +228,26 @@ class Impresion extends CI_Controller {
     $response = ['status' => 'success','data'=>$objeto];
     //return _send_json_response($this, 200, $response);
   }
+   public function imprimirEvaluacionPsicologica() {
+    if (!validate_http_method($this, ['POST'])) return; 
+    //$res = verifyTokenAccess();
+    //if(!$res) return; 
+    $data = json_decode(file_get_contents('php://input'), false);
+    //$company = $this->Company->findIdentity(1);
+    $objeto = new stdClass();
+    $url = getHttpHost();
+       /* $company->nombre = strtoupper($company->nombre??'');
+        $company->direccion = $company->direccion??'';
+        $company->nit = $company->nit??'';
+        $company->celular = $company->celular??'';
+        $company->logo = $company->logo_impresion?$url.$company->logo_impresion:'';
+    $objeto->company = $company;
+    $objeto->data = $data;*/
+    //var_dump($data);
+    $data->foto = $data->foto?$url.$data->foto:'';
+    $datos['json'] = json_encode($data);
+    $this->load->view('impresion/evaluacionPsicologica', $datos, FALSE); 
+    $response = ['status' => 'success','data'=>$objeto];
+    //return _send_json_response($this, 200, $response);
+  }
 }
