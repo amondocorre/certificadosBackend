@@ -208,8 +208,8 @@ class Impresion extends CI_Controller {
   }
   public function imprimirEvaluacionMedica() {
     if (!validate_http_method($this, ['POST'])) return; 
-    $res = verifyTokenAccess();
-    if(!$res) return; 
+    //$res = verifyTokenAccess();
+    //if(!$res) return; 
     $data = json_decode(file_get_contents('php://input'), false);
     //$company = $this->Company->findIdentity(1);
     $objeto = new stdClass();
@@ -221,6 +221,7 @@ class Impresion extends CI_Controller {
         $company->logo = $company->logo_impresion?$url.$company->logo_impresion:'';
     $objeto->company = $company;
     $objeto->data = $data;*/
+    //var_dump($data);
     $data->foto = $data->foto?$url.$data->foto:'';
     $datos['json'] = json_encode($data);
     $this->load->view('impresion/evaluacionMedica', $datos, FALSE); 
