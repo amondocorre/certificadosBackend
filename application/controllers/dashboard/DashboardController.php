@@ -33,13 +33,13 @@ class DashboardController extends CI_Controller {
     $data = $this->DashboardModel->get_ingresos_diarios($id_sucursal);
     echo json_encode($data);
   }
-  public function listRent($idSucursal) {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $page = $data['page'] ?? 1;
-    $limit = $data['limit'] ?? 10;
+  public function listEvaMedical($idSucursal) {
+    $this->load->model('evaluation/MedicalModel');
+    $page = $q = $this->input->get('page') ?? 1;
+    $limit = $q = $this->input->get('limit') ?? 10;
     $offset = ($page - 1) * $limit;
-    $data = [];
-    $total = 0;
+    $data = $this->MedicalModel->getEvaluations($limit, $offset,$idSucursal);
+    $total = $this->MedicalModel->getEvaluationsTotal($idSucursal);
     $response = [
       'data' => $data,
       'pagination' => [
@@ -51,13 +51,13 @@ class DashboardController extends CI_Controller {
     ];
     echo json_encode($response);
   }
-  public function listRentEntrega($idSucursal) {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $page = $data['page'] ?? 1;
-    $limit = $data['limit'] ?? 10;
+  public function listEvaPsychological($idSucursal) {
+    $this->load->model('evaluation/PsychologicalModel');
+    $page = $q = $this->input->get('page') ?? 1;
+    $limit = $q = $this->input->get('limit') ?? 10;
     $offset = ($page - 1) * $limit;
-    $data = [];
-    $total =0;
+    $data = $this->PsychologicalModel->getEvaluations($limit, $offset,$idSucursal);
+    $total = $this->PsychologicalModel->getEvaluationsTotal($idSucursal);
     $response = [
       'data' => $data,
       'pagination' => [

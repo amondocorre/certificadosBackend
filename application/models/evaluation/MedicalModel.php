@@ -70,4 +70,20 @@ class MedicalModel extends CI_Model {
     $this->form_validation->set_rules('fecha_evaluacion', 'Eecha Evaluacion', 'required');
     return $this->form_validation->run();
   }
+  public function getEvaluations($limit, $offset,$idSucursal){
+    $this->db->select("id_evaluacion_medica,em.id_estado_evaluacion,fecha_evaluacion,ci,CONCAT(nombre, ' ', em.ap_paterno, ' ', em.ap_materno) AS nombre_completo");
+    $this->db->from("evaluacion_medica em");
+    $this->db->join("estado_evaluacion ee", "ee.id_estado_evaluacion = em.id_estado_evaluacion");
+    //if($idSucursal>0) $this->db->where('id_sucursal',$idSucursal);
+    $this->db->where_in('em.id_estado_evaluacion', [1,2]);
+    $this->db->order_by('fecha_evaluacion', 'asc');
+    $this->db->limit($limit, $offset);
+    return $this->db->get()->result();
+  }
+  public function getEvaluationsTotal($idSucursal){
+    //if($idSucursal>0)  $this->db->where('id_sucursal', $idSucursal);
+    $this->db->where_in('id_estado_evaluacion', [1,2]);
+    return $this->db->count_all_results('evaluacion_medica');
+  }
+
 }

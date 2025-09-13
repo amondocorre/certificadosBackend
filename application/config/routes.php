@@ -221,8 +221,8 @@ $route['api/dashboard/total_clientes'] = 'dashboard/DashboardController/getTotal
 $route['api/dashboard/total_mascotas_estancia'] = 'dashboard/DashboardController/getMascotasEstancia';
 $route['api/dashboard/totalIngresosDiarios/(:any)'] = 'dashboard/DashboardController/getIngresosDiarios/$1';
 $route['api/dashboard/getTotalesInventario/(:any)'] = 'dashboard/DashboardController/getTotalesInventario/$1';
-$route['api/dashboard/listRent/(:any)'] = 'dashboard/DashboardController/listRent/$1';
-$route['api/dashboard/listRentEntrega/(:any)'] = 'dashboard/DashboardController/listRentEntrega/$1';
+$route['api/dashboard/listEvaMedical/(:any)'] = 'dashboard/DashboardController/listEvaMedical/$1';
+$route['api/dashboard/listEvaPsychological/(:any)'] = 'dashboard/DashboardController/listEvaPsychological/$1';
 $route['api/dashboard/getDetailRent/(:any)'] = 'dashboard/DashboardController/getDetailRent/$1';
 // evaluation
 $route['api/evaluation/exploration/create'] = 'evaluation/ExplorationController/create';
