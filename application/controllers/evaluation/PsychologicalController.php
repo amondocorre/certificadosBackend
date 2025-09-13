@@ -80,5 +80,16 @@ class PsychologicalController extends CI_Controller {
       $data = $this->PsychologicalModel->search($q);
       $response = ['status' => 'success','data'=>$data];
       return _send_json_response($this, 200, $response);
-    }
+  }
+  public function findIdentity($id) {
+      if (!validate_http_method($this, ['GET'])) return; 
+      $res = verifyTokenAccess();
+      if(!$res) return; 
+      $url = getHttpHost();
+      $res = $this->PsychologicalModel->findIdentity($id); 
+      $res->foto = $res->foto? $url.$res->foto:'';
+      $res->nombre_completo = $res->nombre.' '.$res->ap_paterno.' '.$res->ap_materno;
+      $response = ['status' => 'success','data'=>$res];
+      return _send_json_response($this, 200, $response);
+  }
 }
