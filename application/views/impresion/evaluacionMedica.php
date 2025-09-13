@@ -109,12 +109,12 @@ $pdf->AddPage();
   
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+7); // asegura posición
   switch (trim($data->f_amarilla)) {
-    case 'SI':
+    case '1':
         $pdf->Cell(43, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 0, 'C');
         $pdf->Cell(15, 5, "", $margen, 0, 'C');
         break;
-    case 'NO':
+    case '0':
         $pdf->Cell(58, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 0, 'C');
         break;
@@ -122,11 +122,11 @@ $pdf->AddPage();
   }
   
   switch (trim($data->antitetanica)) {
-    case 'SI':
+    case '1':
         $pdf->Cell(62, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'NO':
+    case '0':
         $pdf->Cell(77, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
@@ -189,11 +189,11 @@ $pdf->AddPage();
    $pdf->SetXY($pdf->GetX(), $pdf->GetY()+1); // asegura posición
 
   switch (trim($data->estrabismo)) {
-    case 'SI':
+    case '1':
         $pdf->Cell(73, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'NO':
+    case '0':
         $pdf->Cell(112, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
@@ -201,13 +201,13 @@ $pdf->AddPage();
   //USA LENTES
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+1); // asegura posición
   switch (trim($data->usa_lentes)) {
-    case 'SI':
+    case '1':
         $pdf->Cell(73, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 0, 'C');
         $pdf->Cell(50, 5, "", $margen, 0, 'C');
         $pdf->Cell(40, 5, $data->tipo_lentes, $margen, 1, 'L');
         break;
-    case 'NO':
+    case '0':
         $pdf->Cell(112, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 0, 'C');
         $pdf->Cell(13, 5, "", $margen, 0, 'C');
@@ -217,11 +217,11 @@ $pdf->AddPage();
     //cirugia
  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
   switch (trim($data->cirugia)) {
-    case 'SI':
+    case '1':
         $pdf->Cell(73, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'NO':
+    case '0':
         $pdf->Cell(112, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;

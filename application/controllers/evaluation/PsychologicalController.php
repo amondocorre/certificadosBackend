@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class MedicalController extends CI_Controller {
+class PsychologicalController extends CI_Controller {
   public function __construct() {
       parent::__construct();
       $this->load->database(); 
-      $this->load->model('evaluation/MedicalModel');
+      $this->load->model('evaluation/PsychologicalModel');
   } 
   public function create() {
     if (!validate_http_method($this, ['POST'])) {
@@ -19,18 +19,18 @@ class MedicalController extends CI_Controller {
     $data = $this->input->post();
     $file = $_FILES['file']??null;
     unset($data['nombre_completo']);
-    $id = $this->MedicalModel->create($data,$idUsuario);
+    $id = $this->PsychologicalModel->create($data,$idUsuario);
     if($id) {
       if($file){
-        $url = guardarArchivo($id,$file,'assets/evaluacion_medica/');
+        $url = guardarArchivo($id,$file,'assets/evaluacion_psicologico/');
         if(!$url){
           $response = ['status' => 'success','message'=>'Ocurrio un error al guardar la foto.'];
           return _send_json_response($this, 200, $response);
         }
-        $this->MedicalModel->updateFoto($url,$id);
-      } 
+        $this->PsychologicalModel->updateFoto($url,$id);
+      }
       $url = getHttpHost();
-      $res = $this->MedicalModel->findIdentity($id); 
+      $res = $this->PsychologicalModel->findIdentity($id); 
       $res->foto = $res->foto? $url.$res->foto:'';
       $res->nombre_completo = $res->nombre.' '.$res->ap_paterno.' '.$res->ap_materno;
       $response = ['status' => 'success','message'=>'Se Guardo correctamente la información.','data'=>$res];
@@ -49,17 +49,17 @@ class MedicalController extends CI_Controller {
     $data = $this->input->post();
     $file = $_FILES['file']??null;
     unset($data['nombre_completo']);
-    if ($this->MedicalModel->update($id, $data,$idUsuario)) {
+    if ($this->PsychologicalModel->update($id, $data,$idUsuario)) {
       if($file){
         $url = guardarArchivo($id,$file,'assets/evaluacion_medica/');
         if(!$url){
           $response = ['status' => 'success','message'=>'Ocurrio un error al guardar la foto.'];
           return _send_json_response($this, 200, $response);
         }
-        $this->MedicalModel->updateFoto($url,$id);
+        $this->PsychologicalModel->updateFoto($url,$id);
       }
       $url = getHttpHost();
-      $res = $this->MedicalModel->findIdentity($id); 
+      $res = $this->PsychologicalModel->findIdentity($id); 
       $res->foto = $res->foto? $url.$res->foto:'';
       $res->nombre_completo = $res->nombre.' '.$res->ap_paterno.' '.$res->ap_materno;
       $response = ['status' => 'success','message'=>'Se Guardo correctamente la información.','data'=>$res];
@@ -77,7 +77,7 @@ class MedicalController extends CI_Controller {
       if (empty($q)) {
           return _send_json_response($this, 400, ['status' => 'error', 'message' => 'Parámetros incompletos']);
       }
-      $data = $this->MedicalModel->search($q);
+      $data = $this->PsychologicalModel->search($q);
       $response = ['status' => 'success','data'=>$data];
       return _send_json_response($this, 200, $response);
     }

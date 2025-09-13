@@ -191,8 +191,8 @@ $route['api/impresion/imprimirCierreTurno/(:any)'] = 'Impresion/imprimirCierreTu
 $route['api/impresion/imprimirContrato/(:any)'] = 'Impresion/imprimirContrato/$1';
 $route['api/impresion/imprimirReciboPago/(:any)'] = 'Impresion/imprimirReciboPago/$1';
 $route['api/impresion/imprimirReciboPagoContrato/(:any)'] = 'Impresion/imprimirReciboPagoContrato/$1';
-$route['api/impresion/imprimirEvaluacionMedica'] = 'Impresion/imprimirEvaluacionMedica';
-$route['api/impresion/imprimirEvaluacionPsicologica'] = 'Impresion/imprimirEvaluacionPsicologica';
+$route['api/impresion/imprimirEvaluacionMedica/(:any)'] = 'Impresion/imprimirEvaluacionMedica/$1';
+$route['api/impresion/imprimirEvaluacionPsicologica/(:any)'] = 'Impresion/imprimirEvaluacionPsicologica/$1';
 
 $route['api/config/company/activate/(:any)'] = 'configurations/CompanyController/activate/$1';
 
@@ -231,4 +231,8 @@ $route['api/evaluation/exploration/search'] = 'evaluation/ExplorationController/
 $route['api/evaluation/medical/create'] = 'evaluation/MedicalController/create';
 $route['api/evaluation/medical/update/(:any)'] = 'evaluation/MedicalController/update/$1';
 $route['api/evaluation/medical/search'] = 'evaluation/MedicalController/search';
+// evaluation psychological
+$route['api/evaluation/psychological/create'] = 'evaluation/PsychologicalController/create';
+$route['api/evaluation/psychological/update/(:any)'] = 'evaluation/PsychologicalController/update/$1';
+$route['api/evaluation/psychological/search'] = 'evaluation/PsychologicalController/search';
 

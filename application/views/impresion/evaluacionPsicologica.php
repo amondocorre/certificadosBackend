@@ -64,7 +64,7 @@ $pdf->AddPage();
   $pdf->Cell(45, 5, $data->profecion, $margen, 0, 'r');
   //fecha examen
   $pdf->Cell(8, 5, "", $margen, 0, 'C');
-  $pdf->Cell(40, 5, $data->fecha_examen, $margen, 1, 'r');
+  $pdf->Cell(40, 5, $data->fecha_evaluacion, $margen, 1, 'r');
   //DOMICILIO
   $pdf->SetXY($pdf->GetX()-3, $pdf->GetY()+12); // asegura posición
   $pdf->Cell(45, 5, $data->domicilio, $margen, 0, 'r');
@@ -93,15 +93,15 @@ $pdf->AddPage();
   $pdf->SetFont('helvetica', 'N', 10);
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+17); // asegura posición
   switch (trim($data->coordinacion_visomotora)) {
-    case 'ADECUADO':
+    case 'adecuado':
         $pdf->Cell(35, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'INADECUADO':
+    case 'inadecuado':
         $pdf->Cell(80, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'OBSERVACION':
+    case 'observacion':
         $pdf->Cell(125, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
@@ -110,15 +110,15 @@ $pdf->AddPage();
   //PERSONALIDAD
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+17); // asegura posición
   switch (trim($data->personalidad)) {
-    case 'ADECUADO':
+    case 'adecuado':
         $pdf->Cell(35, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'INADECUADO':
+    case 'inadecuado':
         $pdf->Cell(80, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'OBSERVACION':
+    case 'observacion':
         $pdf->Cell(125, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
@@ -127,15 +127,15 @@ $pdf->AddPage();
   //memoria
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+20); // asegura posición
   switch (trim($data->atencion_cognitiva)) {
-    case 'ADECUADO':
+    case 'adecuado':
         $pdf->Cell(35, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'INADECUADO':
+    case 'inadecuado':
         $pdf->Cell(80, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'OBSERVACION':
+    case 'opservacion':
         $pdf->Cell(125, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
@@ -144,15 +144,15 @@ $pdf->AddPage();
   //estres
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+25); // asegura posición
   switch (trim($data->reaccion_estres_riego)) {
-    case 'OPTIMO':
+    case 'optimo':
         $pdf->Cell(33, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'MEDIO':
+    case 'menio':
         $pdf->Cell(75, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'INADECUADO':
+    case 'inadecuado':
         $pdf->Cell(125, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
