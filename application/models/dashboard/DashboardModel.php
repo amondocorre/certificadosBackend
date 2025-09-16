@@ -20,7 +20,7 @@ class DashboardModel extends CI_Model {
         COUNT(*) AS total,
         SUM(CASE WHEN sexo = 'M' THEN 1 ELSE 0 END) AS masculino,
         SUM(CASE WHEN sexo = 'F' THEN 1 ELSE 0 END) AS femenino
-        FROM cliente;
+        FROM evaluacion_medica;
     ");
     return $query->row(); // Devuelve un solo objeto con ->total
   }

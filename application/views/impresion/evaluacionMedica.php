@@ -36,6 +36,7 @@ $pdf->AddPage();
   $logoX = $pdf->GetX();
   $logoY = $pdf->GetY();
   $rutaImagen =  $data->foto;
+  $pdf->Cell(5, 5, "", $margen, 0, 'C');
   $pdf->Image($rutaImagen, $logoX+140, $logoY+15, $logoWidth, '0', 'PNG');
  
 
@@ -364,7 +365,7 @@ $pdf->AddPage();
   //resultado de la evaluacion
   $pdf->SetFont('helvetica', 'B', 12);
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+21); // asegura posición
-  $pdf->MultiCell(170, 5, utf8_decode($data->resultado_evaluacion), $margen, 'C');
+  $pdf->MultiCell(170, 5, utf8_decode($data->motivo_resultado), $margen, 'C');
 
 
 
