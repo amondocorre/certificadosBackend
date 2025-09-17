@@ -10,6 +10,7 @@ class DashboardModel extends CI_Model {
   }
   //se obtienen el total de clientes y cuantos varones y mujeres hay
   public function getTotalEvaMedical($id_sucursal) {
+    $fecha = date('Y-m-d');
     $query = $this->db->query("
         SELECT 
         COUNT(*) AS total,
