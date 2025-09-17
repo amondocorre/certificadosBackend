@@ -15,16 +15,17 @@ class DashboardModel extends CI_Model {
         COUNT(*) AS total,
         SUM(CASE WHEN sexo = 'M' THEN 1 ELSE 0 END) AS masculino,
         SUM(CASE WHEN sexo = 'F' THEN 1 ELSE 0 END) AS femenino
-        FROM evaluacion_medica;");
+        FROM evaluacion_medica where fecha_evaluacion='$fecha';");
     return $query->row(); 
   }
   public function getTotalEvaPsychological($id_sucursal) {
+    $fecha = date('Y-m-d');
     $query = $this->db->query("
         SELECT 
         COUNT(*) AS total,
         '0' as masculino,
         '0' AS femenino
-        FROM evaluacion_psicologica;");
+        FROM evaluacion_psicologica where fecha_evaluacion='$fecha';");
     return $query->row(); 
   }
 
