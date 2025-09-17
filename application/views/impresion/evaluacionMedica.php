@@ -36,9 +36,26 @@ $pdf->AddPage();
   $logoX = $pdf->GetX();
   $logoY = $pdf->GetY();
   $rutaImagen =  $data->foto;
-  $pdf->Cell(5, 5, "", $margen, 0, 'C');
-  $pdf->Image($rutaImagen, $logoX+140, $logoY+15, $logoWidth, '0', 'PNG');
- 
+ // $pdf->Cell(5, 5, $rutaImagen, $margen, 0, 'l');
+  $pdf->Image($rutaImagen, $logoX+140, $logoY+15, $logoWidth, '0', '');
+  
+  // $data->foto viene como: "http://localhost/amondocorre/assets/evaluacion_medica/6.jpg"
+// Lo transformamos en ruta física
+
+$nombreArchivo = basename($data->foto); // => "6.jpg"
+
+// Ruta física completa en tu servidor
+$rutaImagen = FCPATH . "assets/evaluacion_medica/" . $nombreArchivo;
+
+// Para depuración: verificar si existe
+if (file_exists($rutaImagen)) {
+    $pdf->Image($rutaImagen, $logoX + 140, $logoY + 15, $logoWidth, 0, '', '', false, 300);
+} else {
+    $pdf->Cell(0, 5, "Imagen no encontrada: " . $rutaImagen, 0, 1, 'L');
+}
+
+
+
 
   //$pdf->Image($data->foto, $logoX-10, $logoY-10, $logoWidth, '', 'PNG');
   $pdf->SetFont('helvetica', 'B', 14);
