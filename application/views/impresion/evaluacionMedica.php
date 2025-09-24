@@ -37,7 +37,7 @@ $pdf->AddPage();
   $logoY = $pdf->GetY();
   $rutaImagen =  $data->foto;
  // $pdf->Cell(5, 5, $rutaImagen, $margen, 0, 'l');
-  $pdf->Image($rutaImagen, $logoX+140, $logoY+15, $logoWidth, '0', '');
+ // $pdf->Image($rutaImagen, $logoX+140, $logoY+15, $logoWidth, '0', '');
   
   // $data->foto viene como: "http://localhost/amondocorre/assets/evaluacion_medica/6.jpg"
 // Lo transformamos en ruta física
@@ -58,7 +58,7 @@ if (file_exists($rutaImagen)) {
 
 
   //$pdf->Image($data->foto, $logoX-10, $logoY-10, $logoWidth, '', 'PNG');
-  $pdf->SetFont('helvetica', 'B', 14);
+  //$pdf->SetFont('helvetica', 'B', 14);
   $afterLogoY = $logoY + $logoWidth + 2;
   $pdf->SetXY($pdf->getMargins()['left']-10,$afterLogoY-12);
     
@@ -84,7 +84,8 @@ if (file_exists($rutaImagen)) {
   //fecha
   //$pdf->Cell(20, 5, $data->fecha, $margen, 1, 'L');
   //antecedentes_rc
-  $pdf->Cell(5, 18, "", $margen, 1, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+2); // asegura posición
+  $pdf->Cell(5, 21, "", $margen, 1, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(45, 5, "", $margen, 0, 'C');
   $pdf->MultiCell(110, 10, utf8_decode($data->antecendentes_rc), $margen, 'L');
   //antecedentes_pp
@@ -155,21 +156,21 @@ if (file_exists($rutaImagen)) {
   $pdf->Cell(35, 5, $data->grupo_sanguineo, $margen, 1, 'C');
   //temperatura
   $pdf->Cell(5, 5, "", $margen, 1, 'C'); // SALTO DE LINEA ANCHO
-  $pdf->Cell(40, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
-  $pdf->Cell(20, 5, $data->temperatura, $margen, 0, 'C');
+  $pdf->Cell(40, 4, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(23, 5, $data->temperatura, $margen, 0, 'C');
   //presion arterial
   $pdf->Cell(35, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $presion = str_replace("/", "  ", $data->presion_arterial);
   $pdf->Cell(30, 5, $presion, $margen, 1, 'C');
   //frecuencia_cardiaca
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+4); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
   $pdf->Cell(25, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(20, 5, $data->frecuencia_cardiaca, $margen, 0, 'C');
   //frecuencia_respiratoria
   $pdf->Cell(70, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(30, 5, $data->frecuencia_respiratoria, $margen, 1, 'C');
   //talla
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+5); // asegura posición
   $pdf->Cell(35, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(25, 5, $data->talla, $margen, 0, 'C');
   //peso
@@ -193,7 +194,7 @@ if (file_exists($rutaImagen)) {
   $pdf->MultiCell(150, 5, utf8_decode($data->cuello), $margen, 'L');
     $pdf->SetFont('helvetica', 'N', 10);
   //ex_general_ojos
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
   $pdf->Cell(80, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(70, 5, $data->ex_general_ojos, $margen, 1, 'L');
   //movimiento_oculares
@@ -209,28 +210,28 @@ if (file_exists($rutaImagen)) {
 
   switch (trim($data->estrabismo)) {
     case '1':
-        $pdf->Cell(73, 5, "", $margen, 0, 'C');
-        $pdf->Cell(8, 5, "X", $margen, 1, 'C');
+        $pdf->Cell(74, 5, "", $margen, 0, 'C');
+        $pdf->Cell(9, 5, "X", $margen, 1, 'C');
         break;
     case '0':
-        $pdf->Cell(112, 5, "", $margen, 0, 'C');
-        $pdf->Cell(8, 5, "X", $margen, 1, 'C');
+        $pdf->Cell(113, 5, "", $margen, 0, 'C');
+        $pdf->Cell(9, 5, "X", $margen, 1, 'C');
         break;
   }
   //USA LENTES
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+1); // asegura posición
   switch (trim($data->usa_lentes)) {
     case '1':
-        $pdf->Cell(73, 5, "", $margen, 0, 'C');
-        $pdf->Cell(8, 5, "X", $margen, 0, 'C');
+        $pdf->Cell(74, 5, "", $margen, 0, 'C');
+        $pdf->Cell(9, 5, "X", $margen, 0, 'C');
         $pdf->Cell(50, 5, "", $margen, 0, 'C');
-        $pdf->Cell(40, 5, $data->tipo_lentes, $margen, 1, 'L');
+        $pdf->Cell(43, 5, $data->tipo_lentes, $margen, 1, 'L');
         break;
     case '0':
-        $pdf->Cell(112, 5, "", $margen, 0, 'C');
-        $pdf->Cell(8, 5, "X", $margen, 0, 'C');
+        $pdf->Cell(113, 5, "", $margen, 0, 'C');
+        $pdf->Cell(9, 5, "X", $margen, 0, 'C');
         $pdf->Cell(13, 5, "", $margen, 0, 'C');
-        $pdf->Cell(30, 5, $data->tipo_lentes, $margen, 1, 'L');
+        $pdf->Cell(33, 5, $data->tipo_lentes, $margen, 1, 'L');
         break;
   }
     //cirugia
@@ -282,7 +283,7 @@ if (file_exists($rutaImagen)) {
   $pdf->MultiCell(140, 4, utf8_decode($data->oido_externo), $margen, 'L');
   //$pdf->SetFont('helvetica', 'N', 10);
   //otoscpia
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+4); // asegura posición
   $pdf->Cell(15, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(45, 5, $data->oroscopia, $margen, 0, 'l');
   //t_weber
@@ -351,41 +352,43 @@ if (file_exists($rutaImagen)) {
    //evaluacion de especialidad
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+6); // asegura posición
   switch (trim($data->requiere_evaluacion_especialidad)) {
-    case 'SI':
+    case '1':
         $pdf->Cell(70, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'NO':
+    case '0':
         $pdf->Cell(125, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
   }
    //motivo de especialidad
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+4); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
   $pdf->Cell(60, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
-  $pdf->MultiCell(80, 5, utf8_decode($data->evaluacion_especialidad), $margen, 'L');
+  $pdf->MultiCell(80, 5, 'evaluacion especialidad: '.utf8_decode($data->motivo_referencia_especialidad), $margen, 'L');
    //resultado motivo de especialidad
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
   $pdf->Cell(65, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
-  $pdf->MultiCell(80, 5, utf8_decode($data->resultado_evaluacion), $margen, 'L');
+  $pdf->MultiCell(80, 5, 'resultaod evaluacion:'.utf8_decode($data->evaluacion_especialidad), $margen, 'L');
   if ($data->resultado_evaluacion == '- NO ES APTO PARA CONDUCIR VEHICULOS INDICAR LOS MOTIVOS.'){
     $pdf->SetTextColor(255, 0, 0);
   }
     //evaluacion de psicosensometirca
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+4); // asegura posición
+
+
   switch (trim($data->requiere_evaluacion_psicosensometria)) {
-    case 'SI':
+    case '1':
         $pdf->Cell(78, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'NO':
+    case '0':
         $pdf->Cell(133, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
   }
   //resultado de la evaluacion
   $pdf->SetFont('helvetica', 'B', 12);
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+21); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+24); // asegura posición
   $pdf->MultiCell(170, 5, utf8_decode($data->motivo_resultado), $margen, 'C');
 
 
