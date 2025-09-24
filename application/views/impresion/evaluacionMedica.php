@@ -80,7 +80,8 @@ if (file_exists($rutaImagen)) {
   //sexo
   $pdf->Cell(10, 5, $data->sexo, $margen, 0, 'C');
   $pdf->Cell(5, 5, "", $margen, 0, 'C');
-  $pdf->Cell(27, 5, "COCHABAMBA, ".$data->fecha_evaluacion, $margen, 0, 'L');
+  $fecha = date("d/m/Y", strtotime($data->fecha_evaluacion));
+  $pdf->Cell(27, 5, "COCHABAMBA, ".$fecha, $margen, 0, 'L');
   //fecha
   //$pdf->Cell(20, 5, $data->fecha, $margen, 1, 'L');
   //antecedentes_rc
@@ -362,7 +363,7 @@ if (file_exists($rutaImagen)) {
         break;
   }
    //motivo de especialidad
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+5); // asegura posición
   $pdf->Cell(60, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $pdf->MultiCell(80, 5, utf8_decode($data->motivo_referencia_especialidad), $margen, 'L');
    //resultado motivo de especialidad
@@ -373,7 +374,7 @@ if (file_exists($rutaImagen)) {
     $pdf->SetTextColor(255, 0, 0);
   }
     //evaluacion de psicosensometirca
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+4); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
 
 
   switch (trim($data->requiere_evaluacion_psicosensometria)) {
@@ -388,7 +389,7 @@ if (file_exists($rutaImagen)) {
   }
   //resultado de la evaluacion
   $pdf->SetFont('helvetica', 'B', 12);
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+24); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+19); // asegura posición
   $pdf->MultiCell(170, 5, utf8_decode($data->motivo_resultado), $margen, 'C');
 
 

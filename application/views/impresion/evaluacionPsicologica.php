@@ -44,7 +44,7 @@ $pdf->AddPage();
     
   //nombre completo
   $pdf->SetFont('helvetica', 'N', 10);
-  $pdf->SetXY($pdf->GetX()+5, $pdf->GetY()+15); // asegura posición
+  $pdf->SetXY($pdf->GetX()+8, $pdf->GetY()+15); // asegura posición
   $pdf->Cell(33, 5, $data->ap_paterno, $margen, 0, 'C');
   $pdf->Cell(3, 5, "", $margen, 0, 'C');
   $pdf->Cell(35, 5, $data->ap_materno, $margen, 0, 'C');
@@ -58,13 +58,15 @@ $pdf->AddPage();
   $pdf->Cell(30, 5, $data->ci, $margen, 1, 'C');
   $pdf->SetXY($pdf->GetX()-3, $pdf->GetY()+12); // asegura posición
   //fecha
-  $pdf->Cell(48, 5, $data->lugar_nacimiento.' '.$data->fecha_nacimiento, $margen, 0, 'L');
+  $fecha = date("d/m/Y", strtotime($data->fecha_nacimiento));
+  $pdf->Cell(48, 5, $data->lugar_nacimiento.' '.$fecha, $margen, 0, 'L');
   //profesion
   $pdf->Cell(8, 5, "", $margen, 0, 'C');
   $pdf->Cell(45, 5, $data->profecion, $margen, 0, 'r');
   //fecha examen
+  $fechaExamen = date("d/m/Y", strtotime($data->fecha_evaluacion));
   $pdf->Cell(8, 5, "", $margen, 0, 'C');
-  $pdf->Cell(40, 5, $data->fecha_evaluacion, $margen, 1, 'r');
+  $pdf->Cell(40, 5, $fechaExamen, $margen, 1, 'r');
   //DOMICILIO
   $pdf->SetXY($pdf->GetX()-3, $pdf->GetY()+12); // asegura posición
   $pdf->Cell(45, 5, $data->domicilio, $margen, 0, 'r');
@@ -79,7 +81,7 @@ $pdf->AddPage();
   $pdf->Cell(28, 5, $data->telefono, $margen, 1, 'C');
   // HISTORIAL FAMILIAR
   $pdf->SetFont('helvetica', 'N', 8);
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+10); // asegura posición
+  $pdf->SetXY($pdf->GetX()+2, $pdf->GetY()+10); // asegura posición
   $pdf->Cell(35, 5, "", $margen, 0, 'C');
   $texto='SE PRESENTA A CONSULTA SUJETO DE '.$data->historia_familiar.'  AÑOS DE EDAD SIN ANTECEDENTES   PSICOLOGICOS PERSONALES O FAMILIARES DESTACABLES';
   $pdf->MultiCell(138, 5, $texto, $margen, 'L');
@@ -91,7 +93,7 @@ $pdf->AddPage();
   */
   //coordinacion visomotora
   $pdf->SetFont('helvetica', 'N', 10);
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+17); // asegura posición
+  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+25); // asegura posición
   switch (trim($data->coordinacion_visomotora)) {
     case 'adecuado':
         $pdf->Cell(35, 5, "", $margen, 0, 'C');
@@ -108,7 +110,7 @@ $pdf->AddPage();
     
   }
   //PERSONALIDAD
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+17); // asegura posición
+  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+17); // asegura posición
   switch (trim($data->personalidad)) {
     case 'adecuado':
         $pdf->Cell(35, 5, "", $margen, 0, 'C');
@@ -125,7 +127,7 @@ $pdf->AddPage();
     
   }
   //memoria
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+20); // asegura posición
+  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+20); // asegura posición
   switch (trim($data->atencion_cognitiva)) {
     case 'adecuado':
         $pdf->Cell(35, 5, "", $margen, 0, 'C');
@@ -142,13 +144,13 @@ $pdf->AddPage();
     
   }
   //estres
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+25); // asegura posición
+  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+25); // asegura posición
   switch (trim($data->reaccion_estres_riego)) {
-    case 'optimo':
+    case 'optio':
         $pdf->Cell(33, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
-    case 'menio':
+    case 'medio':
         $pdf->Cell(75, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
@@ -160,15 +162,17 @@ $pdf->AddPage();
   }
 
    // observaciones
-  $pdf->SetFont('helvetica', 'N', 8);
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+8); // asegura posición
+  $pdf->SetFont('helvetica', 'N', 6);
+  $pdf->SetXY($pdf->GetX()+2, $pdf->GetY()+8); // asegura posición
   $pdf->Cell(30, 5, "", $margen, 0, 'C');
   $pdf->MultiCell(133, 5, '(EN ESTE ACAPITE SE DEBE INCORPORAR SI EL POSTULANTE ES APTO, SI NO FUERA APTO INDICAR LOS MOTIVOS)', $margen, 'L');
   
    // observaciones
-  $pdf->SetFont('helvetica', 'B', 8);
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+5); // asegura posición
-  $pdf->MultiCell(165, 5, $data->observacion, $margen, 'L');
+  $pdf->SetFont('helvetica', 'B', 7);
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+1); // asegura posición
+  //$pdf->MultiCell(165, 5, $data->observacion, $margen, 'L');
+  //$pdf->MultiCell(165, 5, 'DEL PRESENTE APTO DE EVALUACION PSICOLOGICA DE ACUERDO A LOS RESULTADOS  OBTENIDOS DE LAS PRUEBAS APLICADAS CONCLUYO QUE EL INTERESADO, NO PRESENTA ALTERACIONES FUNCIONALES SIGNIFICATIVOS O DISMINUIDAS. EL PRESENTE OSTENTA CAPACIDADES ADECUADAS EN LO QUE CONCLUYO ES APTO PARA CONDUCIR VEHICULOS ', $margen, 'L');
+  $pdf->MultiCell(165, 5, 'DEL PRESENTE APTO DE EVALUACION PSICOLOGICA DE ACUERDO A LOS RESULTADOS  OBTENIDOS DE LAS PRUEBAS APLICADAS CONCLUYO QUE EL INTERESADO, NO PRESENTA ALTERACIONES FUNCIONALES SIGNIFICATIVOS O DISMINUIDAS. EL PRESENTE OSTENTA CAPACIDADES ADECUADAS EN LO QUE CONCLUYO ES APTO PARA CONDUCIR VEHICULOS ', $margen, 'L');
   
 
 
