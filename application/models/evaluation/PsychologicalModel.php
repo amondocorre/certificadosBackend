@@ -64,7 +64,7 @@ class PsychologicalModel extends CI_Model {
     $this->form_validation->set_rules('edad', 'Edad', 'required');
     $this->form_validation->set_rules('fecha_nacimiento', 'Fecha Nacimiento', 'required');
     $this->form_validation->set_rules('lugar_nacimiento', 'Lugar Nacimiento', 'required');
-    $this->form_validation->set_rules('domicilio', 'Domicilio', 'required');
+    //$this->form_validation->set_rules('domicilio', 'Domicilio', 'required');
     $this->form_validation->set_rules('profecion', 'Profecion', 'required');
     $this->form_validation->set_rules('fecha_evaluacion', 'Eecha Evaluacion', 'required');
     return $this->form_validation->run();
@@ -75,7 +75,7 @@ class PsychologicalModel extends CI_Model {
     $this->db->join("estado_evaluacion ee", "ee.id_estado_evaluacion = em.id_estado_evaluacion");
     //if($idSucursal>0) $this->db->where('id_sucursal',$idSucursal);
     $this->db->where_in('em.id_estado_evaluacion', [1,2]);
-    $this->db->order_by('fecha_evaluacion', 'asc');
+    $this->db->order_by('fecha_evaluacion', 'desc');
     $this->db->limit($limit, $offset);
     return $this->db->get()->result();
   }
