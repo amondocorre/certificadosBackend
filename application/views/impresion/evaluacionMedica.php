@@ -47,13 +47,39 @@ $nombreArchivo = basename($data->foto); // => "6.jpg"
 // Ruta física completa en tu servidor
 $rutaImagen = FCPATH . "assets/evaluacion_medica/" . $nombreArchivo;
 
+
+// Área máxima permitida (en mm: 1 cm = 10 mm)
+$maxWidth = 25;  // 3 cm
+$maxHeight = 30; // 2.5 cm
+
+if (file_exists($rutaImagen)) {
+    // Obtener tamaño real de la imagen (en píxeles)
+    list($width, $height) = getimagesize($rutaImagen);
+
+    // Calcular proporción
+    $xRatio = $maxWidth / $width;
+    $yRatio = $maxHeight / $height;
+
+    // Escala proporcional (usa el factor menor)
+    $scale = min($xRatio, $yRatio);
+
+    $newWidth = $width * $scale;
+    $newHeight = $height * $scale;
+
+    // Dibujar imagen con tamaño ajustado
+    $pdf->Image($rutaImagen, $logoX + 140, $logoY + 18, $newWidth, $newHeight, '', '', false, 300);
+} else {
+    $pdf->Cell(0, 5, "Imagen no encontrada: " . $rutaImagen, 0, 1, 'L');
+}
+
+/*
 // Para depuración: verificar si existe
 if (file_exists($rutaImagen)) {
     $pdf->Image($rutaImagen, $logoX + 140, $logoY + 18, $logoWidth, 0, '', '', false, 300);
 } else {
     $pdf->Cell(0, 5, "Imagen no encontrada: " . $rutaImagen, 0, 1, 'L');
 }
-
+*/
 
 
 
@@ -88,11 +114,11 @@ if (file_exists($rutaImagen)) {
   $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+2); // asegura posición
   $pdf->Cell(5, 21, "", $margen, 1, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(45, 5, "", $margen, 0, 'C');
-  $pdf->MultiCell(110, 10, utf8_decode($data->antecendentes_rc), $margen, 'L');
+  $pdf->MultiCell(110, 10, ($data->antecendentes_rc), $margen, 'L');
   //antecedentes_pp
   //$pdf->Cell(5, 5, "", $margen, 1, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(45, 5, "", $margen, 0, 'C');
-  $pdf->MultiCell(110, 10, utf8_decode($data->antecendentes_pp), $margen, 'L');
+  $pdf->MultiCell(110, 10, ($data->antecendentes_pp), $margen, 'L');
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
   switch (trim($data->bebe)) {
     case 'Nunca':
@@ -156,13 +182,13 @@ if (file_exists($rutaImagen)) {
   $pdf->Cell(70, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(35, 5, $data->grupo_sanguineo, $margen, 1, 'C');
   //temperatura
-  $pdf->Cell(5, 5, "", $margen, 1, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(5, 2, "", $margen, 1, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(40, 4, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $pdf->Cell(23, 5, $data->temperatura, $margen, 0, 'C');
   //presion arterial
-  $pdf->Cell(35, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
+  $pdf->Cell(35, 8, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
   $presion = str_replace("/", "  ", $data->presion_arterial);
-  $pdf->Cell(30, 5, $presion, $margen, 1, 'C');
+  $pdf->Cell(27, 5, $presion, $margen, 1, 'C');
   //frecuencia_cardiaca
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
   $pdf->Cell(25, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
@@ -211,11 +237,11 @@ if (file_exists($rutaImagen)) {
 
   switch (trim($data->estrabismo)) {
     case '1':
-        $pdf->Cell(74, 5, "", $margen, 0, 'C');
+        $pdf->Cell(72, 5, "", $margen, 0, 'C');
         $pdf->Cell(9, 5, "X", $margen, 1, 'C');
         break;
     case '0':
-        $pdf->Cell(113, 5, "", $margen, 0, 'C');
+        $pdf->Cell(111, 5, "", $margen, 0, 'C');
         $pdf->Cell(9, 5, "X", $margen, 1, 'C');
         break;
   }
@@ -223,13 +249,13 @@ if (file_exists($rutaImagen)) {
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+1); // asegura posición
   switch (trim($data->usa_lentes)) {
     case '1':
-        $pdf->Cell(74, 5, "", $margen, 0, 'C');
+        $pdf->Cell(72, 5, "", $margen, 0, 'C');
         $pdf->Cell(9, 5, "X", $margen, 0, 'C');
         $pdf->Cell(50, 5, "", $margen, 0, 'C');
         $pdf->Cell(43, 5, $data->tipo_lentes, $margen, 1, 'L');
         break;
     case '0':
-        $pdf->Cell(113, 5, "", $margen, 0, 'C');
+        $pdf->Cell(111, 5, "", $margen, 0, 'C');
         $pdf->Cell(9, 5, "X", $margen, 0, 'C');
         $pdf->Cell(13, 5, "", $margen, 0, 'C');
         $pdf->Cell(33, 5, $data->tipo_lentes, $margen, 1, 'L');
@@ -239,11 +265,11 @@ if (file_exists($rutaImagen)) {
  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
   switch (trim($data->cirugia)) {
     case '1':
-        $pdf->Cell(73, 5, "", $margen, 0, 'C');
+        $pdf->Cell(72, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
     case '0':
-        $pdf->Cell(112, 5, "", $margen, 0, 'C');
+        $pdf->Cell(111, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
   }
@@ -363,16 +389,14 @@ if (file_exists($rutaImagen)) {
         break;
   }
    //motivo de especialidad
-  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+5); // asegura posición
+  $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
   $pdf->Cell(60, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
-  $pdf->MultiCell(80, 5, utf8_decode($data->motivo_referencia_especialidad), $margen, 'L');
+  $pdf->MultiCell(80, 5, ($data->motivo_referencia_especialidad), $margen, 'L');
    //resultado motivo de especialidad
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+5); // asegura posición
   $pdf->Cell(65, 5, "", $margen, 0, 'C'); // SALTO DE LINEA ANCHO
-  $pdf->MultiCell(80, 5, utf8_decode($data->evaluacion_especialidad), $margen, 'L');
-  if ($data->resultado_evaluacion == '- NO ES APTO PARA CONDUCIR VEHICULOS INDICAR LOS MOTIVOS.'){
-    $pdf->SetTextColor(255, 0, 0);
-  }
+  $pdf->MultiCell(100, 5, ($data->evaluacion_especialidad), $margen, 'L');
+  
     //evaluacion de psicosensometirca
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+2); // asegura posición
 
@@ -387,10 +411,13 @@ if (file_exists($rutaImagen)) {
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
   }
+  if ($data->resultado_evaluacion == 'NO ES APTO PARA CONDUCIR VEHICULOS INDICAR LOS MOTIVOS'){
+    $pdf->SetTextColor(255, 0, 0);
+  }
   //resultado de la evaluacion
   $pdf->SetFont('helvetica', 'B', 12);
   $pdf->SetXY($pdf->GetX(), $pdf->GetY()+19); // asegura posición
-  $pdf->MultiCell(170, 5, utf8_decode($data->motivo_resultado), $margen, 'C');
+  $pdf->MultiCell(170, 5, ($data->motivo_resultado), $margen, 'C');
 
 
 

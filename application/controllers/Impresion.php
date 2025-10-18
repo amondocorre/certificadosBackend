@@ -210,9 +210,11 @@ class Impresion extends CI_Controller {
     
   }
   public function imprimirEvaluacionMedica($id) {
+    /*
     if (!validate_http_method($this, ['GET'])) return; 
     $res = verifyTokenAccess();
     if(!$res) return; 
+    */
     //$data = json_decode(file_get_contents('php://input'), false);
     $data = $this->MedicalModel->findIdentity($id);
     $url = getHttpHost();
