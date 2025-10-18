@@ -14,6 +14,7 @@ class Impresion extends CI_Controller {
     $this->load->model('configurations/SucursalModel');
     $this->load->model('evaluation/MedicalModel');
     $this->load->model('evaluation/PsychologicalModel');
+    $this->load->model('evaluation/InfPsychologicalModel');
   } 
   public function imprimirMovimientoCaja($idMovimiento) {
    if (!validate_http_method($this, ['POST'])) return; 
@@ -230,6 +231,18 @@ class Impresion extends CI_Controller {
     $data->foto = $data->foto?$url.$data->foto:'';
     $datos['json'] = json_encode($data);
     $this->load->view('impresion/evaluacionPsicologica', $datos, FALSE); 
+    $response = ['status' => 'success','data'=>$data];
+    //return _send_json_response($this, 200, $response);
+  }
+  public function imprimirInfEvaluacionPsicologica($id) {
+    if (!validate_http_method($this, ['GET'])) return; 
+    $res = verifyTokenAccess();
+    if(!$res) return; 
+    $data = $this->InfPsychologicalModel->findIdentity($id);
+    $url = getHttpHost();
+    $data->foto = $data->foto?$url.$data->foto:'';
+    $datos['json'] = json_encode($data);
+    $this->load->view('impresion/infPvaluacionPsicologica', $datos, FALSE); 
     $response = ['status' => 'success','data'=>$data];
     //return _send_json_response($this, 200, $response);
   }

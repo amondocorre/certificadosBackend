@@ -193,6 +193,7 @@ $route['api/impresion/imprimirReciboPago/(:any)'] = 'Impresion/imprimirReciboPag
 $route['api/impresion/imprimirReciboPagoContrato/(:any)'] = 'Impresion/imprimirReciboPagoContrato/$1';
 $route['api/impresion/imprimirEvaluacionMedica/(:any)'] = 'Impresion/imprimirEvaluacionMedica/$1';
 $route['api/impresion/imprimirEvaluacionPsicologica/(:any)'] = 'Impresion/imprimirEvaluacionPsicologica/$1';
+$route['api/impresion/imprimirInfEvaluacionPsicologica/(:any)'] = 'Impresion/imprimirInfEvaluacionPsicologica/$1';
 
 $route['api/config/company/activate/(:any)'] = 'configurations/CompanyController/activate/$1';
 
@@ -235,3 +236,9 @@ $route['api/evaluation/psychological/activate/(:any)'] = 'evaluation/Psychologic
 $route['api/evaluation/psychological/search'] = 'evaluation/PsychologicalController/search';
 $route['api/evaluation/psychological/findIdentity/(:any)'] = 'evaluation/PsychologicalController/findIdentity/$1';
 
+// evaluation inf psychological
+$route['api/evaluation/InfPsychological/create'] = 'evaluation/InfPsychologicalController/create';
+$route['api/evaluation/InfPsychological/update/(:any)'] = 'evaluation/InfPsychologicalController/update/$1';
+$route['api/evaluation/InfPsychological/activate/(:any)'] = 'evaluation/InfPsychologicalController/activate/$1';
+$route['api/evaluation/InfPsychological/search'] = 'evaluation/InfPsychologicalController/search';
+$route['api/evaluation/InfPsychological/findIdentity/(:any)'] = 'evaluation/InfPsychologicalController/findIdentity/$1';
