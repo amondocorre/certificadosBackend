@@ -220,6 +220,7 @@ $route['api/dashboard/getTotalEvaluations/(:any)'] = 'dashboard/DashboardControl
 $route['api/dashboard/totalIngresosDiarios/(:any)'] = 'dashboard/DashboardController/getIngresosDiarios/$1';
 $route['api/dashboard/listEvaMedical/(:any)'] = 'dashboard/DashboardController/listEvaMedical/$1';
 $route['api/dashboard/listEvaPsychological/(:any)'] = 'dashboard/DashboardController/listEvaPsychological/$1';
+$route['api/dashboard/listInfEvaPsychological/(:any)'] = 'dashboard/DashboardController/listInfEvaPsychological/$1';
 // evaluation
 $route['api/evaluation/exploration/create'] = 'evaluation/ExplorationController/create';
 $route['api/evaluation/exploration/search'] = 'evaluation/ExplorationController/search';

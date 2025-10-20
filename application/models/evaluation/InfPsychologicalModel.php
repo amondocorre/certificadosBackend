@@ -76,12 +76,12 @@ class InfPsychologicalModel extends CI_Model {
     return $this->form_validation->run();
   }
   public function getEvaluations($limit, $offset,$idSucursal){
-    $this->db->select("id_inf_evaluacion_psicologica,em.id_estado_evaluacion,fecha_evaluacion,ci,CONCAT(nombre, ' ', em.ap_paterno, ' ', em.ap_materno) AS nombre_completo");
+    $this->db->select("id_inf_evaluacion_psicologica,em.id_estado_evaluacion,fecha_registro,ci,CONCAT(nombre, ' ', em.ap_paterno, ' ', em.ap_materno) AS nombre_completo");
     $this->db->from("inf_evaluacion_psicologica em");
     $this->db->join("estado_evaluacion ee", "ee.id_estado_evaluacion = em.id_estado_evaluacion");
     //if($idSucursal>0) $this->db->where('id_sucursal',$idSucursal);
     $this->db->where_in('em.id_estado_evaluacion', [1,2]);
-    $this->db->order_by('fecha_evaluacion', 'desc');
+    $this->db->order_by('fecha_registro', 'desc');
     $this->db->limit($limit, $offset);
     return $this->db->get()->result();
   }
