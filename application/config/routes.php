@@ -212,7 +212,7 @@ $route['api/transport/delete/(:any)'] = 'TransportController/delete/$1';
 $route['api/transport/activate/(:any)'] = 'TransportController/activate/$1';
 // reportes 
 $route['api/report/reportCierreTurno'] = 'reports/ReportController/reportCierreTurno';
-$route['api/report/reportContratos'] = 'reports/ReportController/reportContratos';
+$route['api/report/medical'] = 'reports/ReportController/reportEvaluationMedical';
 $route['api/report/reportContratoDeudas'] = 'reports/ReportController/reportContratoDeudas';
 
 //dashboard
@@ -243,3 +243,6 @@ $route['api/evaluation/InfPsychological/update/(:any)'] = 'evaluation/InfPsychol
 $route['api/evaluation/InfPsychological/activate/(:any)'] = 'evaluation/InfPsychologicalController/activate/$1';
 $route['api/evaluation/InfPsychological/search'] = 'evaluation/InfPsychologicalController/search';
 $route['api/evaluation/InfPsychological/findIdentity/(:any)'] = 'evaluation/InfPsychologicalController/findIdentity/$1';
+$route['api/proxy-image'] = 'ImageProxy/get';
+$route['api/image-batch'] = 'ImageProxy/getBase64List';
+//$route['api/proxy-image/(:any)'] = 'ImageProxy/get/$1';
