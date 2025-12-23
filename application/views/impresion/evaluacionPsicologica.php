@@ -83,8 +83,9 @@ $pdf->AddPage();
   $pdf->SetFont('helvetica', 'N', 8);
   $pdf->SetXY($pdf->GetX()+2, $pdf->GetY()+10); // asegura posición
   $pdf->Cell(35, 5, "", $margen, 0, 'C');
-  $texto='SE PRESENTA A CONSULTA SUJETO DE '.$data->historia_familiar.'  AÑOS DE EDAD SIN ANTECEDENTES   PSICOLOGICOS PERSONALES O FAMILIARES DESTACABLES';
-  $pdf->MultiCell(138, 5, $texto, $margen, 'L');
+  //$texto='SE PRESENTA A CONSULTA SUJETO DE '.$data->historia_familiar.'  AÑOS DE EDAD SIN ANTECEDENTES   PSICOLOGICOS PERSONALES O FAMILIARES DESTACABLES';
+  $texto=''.$data->historia_familiar.'';
+  $pdf->MultiCell(135, 5, $texto, $margen, 'L');
    // examen psicologico
   /*
    $pdf->SetXY($pdf->GetX(), $pdf->GetY()+3); // asegura posición
@@ -92,11 +93,11 @@ $pdf->AddPage();
   $pdf->MultiCell(133, 5, $data->historial_familiar, $margen, 'L');
   */
   //coordinacion visomotora
-  $pdf->SetFont('helvetica', 'N', 10);
-  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+25); // asegura posición
+  $pdf->SetFont('helvetica', 'N', 14);
+  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+28); // asegura posición
   switch (trim($data->coordinacion_visomotora)) {
     case 'adecuado':
-        $pdf->Cell(35, 5, "", $margen, 0, 'C');
+        $pdf->Cell(32, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
     case 'inadecuado':
@@ -110,10 +111,10 @@ $pdf->AddPage();
     
   }
   //PERSONALIDAD
-  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+17); // asegura posición
+  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+16); // asegura posición
   switch (trim($data->personalidad)) {
     case 'adecuado':
-        $pdf->Cell(35, 5, "", $margen, 0, 'C');
+        $pdf->Cell(32, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
     case 'inadecuado':
@@ -130,7 +131,7 @@ $pdf->AddPage();
   $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+20); // asegura posición
   switch (trim($data->atencion_cognitiva)) {
     case 'adecuado':
-        $pdf->Cell(35, 5, "", $margen, 0, 'C');
+        $pdf->Cell(32, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
     case 'inadecuado':
@@ -144,14 +145,14 @@ $pdf->AddPage();
     
   }
   //estres
-  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+25); // asegura posición
+  $pdf->SetXY($pdf->GetX()+4, $pdf->GetY()+24); // asegura posición
   switch (trim($data->reaccion_estres_riego)) {
     case 'optio':
         $pdf->Cell(33, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
     case 'medio':
-        $pdf->Cell(75, 5, "", $margen, 0, 'C');
+        $pdf->Cell(71, 5, "", $margen, 0, 'C');
         $pdf->Cell(8, 5, "X", $margen, 1, 'C');
         break;
     case 'inadecuado':
